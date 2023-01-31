@@ -1,29 +1,17 @@
 version: 2.1
-jobs:
-  say-hello:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello"
-  say-World:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - run:
-          name: "Say World"
-          command: "echo World!"
-      - run:
-          name: "Print an env var stored in the Project"
-          command: echo ${PROJECT_ENV_VAR}
+
 workflows:
-  say-hello-workflow:
+  test-env-vars:
     jobs:
-      - say-hello
-      - say-World:
-          requires: 
-            - say-hello
-      
+      - build
+
+jobs:
+  build:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - checkout
+      - run:
+          name: "echo an env var that is part of our project"
+          command: |
+            echo $MY_ENV_VAR
