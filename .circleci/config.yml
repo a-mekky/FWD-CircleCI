@@ -33,6 +33,5 @@ workflows:
   say-hello-workflow:
     jobs:
       - say-hello
-  say-world-workflow:
-    jobs:
       - say-World
+      
